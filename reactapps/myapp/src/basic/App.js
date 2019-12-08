@@ -1,4 +1,5 @@
-import Welcome from './basic.js'
+
+import {Clock,Welcome,NameForm} from './basic.js'
 import React from 'react';
 import './App.css';
 
@@ -9,8 +10,13 @@ class App extends React.Component
   {
     
     return <div><Welcome name="shankar"/>
-    <Welcome name="roopa"/>
-    <Welcome name="hari"/>
+    <Welcome name={"roopa"}/>
+    <Welcome name={"hari"}/>
+    <Clock/><Clock/>
+    <Clock/>
+    <Clock/>
+    <NameForm/>
+    
     </div>
   }
 }
