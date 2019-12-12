@@ -1,5 +1,6 @@
 import { Account } from './Acc.js'
 import React from 'react';
+import './style1.css';
 import 'bootstrap/dist/css/bootstrap.css';
 class App extends React.Component {
     render() {

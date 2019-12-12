@@ -1,9 +1,19 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-
+import './style1.css';
 //import { Form, FormControl, Button } from 'react-bootstrap';
 
 class Account extends React.Component {
+	constructor()
+	{
+		super()
+
+		
+	}
+	ylicked()
+	{
+		this.msg="LIKED"
+	}
 
     render() {
         const url = "https://www.sideshow.com/storage/product-images/903429/thanos_marvel_feature.jpg"
@@ -22,8 +32,14 @@ class Account extends React.Component {
             <div style={styl}>
                 <img src={this.props.url} height={100} width={200}></img>
             </div>
+			<div style={styl}>
+			<button className="btn modern-btn" onClick={this.ylicked}>LIKE </button>
+			</div>
+			<div style={styl}>
+				
+			</div>
             <br />
-
+         
         </div>
     }
 }

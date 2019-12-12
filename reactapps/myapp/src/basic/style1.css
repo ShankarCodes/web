@@ -1,0 +1,31 @@
+.modern-btn, .modern-btn:hover, .modern-btn:focus {
+  background: black;
+  border: 2px white solid;
+  margin: 10px;
+  padding: 200px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: url("https://fonts.googleapis.com/css?family=Bebas+Neue&display=swap");
+  font-weight: 1000;
+  font-size: large;
+  color: white;
+  transition: 300ms cubic-bezier();
+  animation-fill-mode: both;
+  outline: 4px;
+  outline-color: gray;
+  margin-right: 20px;
+  margin-left: 20px;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+.modern-btn:hover, .modern-btn:focus {
+  background: white;
+  color: black;
+  border: 2px black solid;
+  outline: 4px;
+  outline-color: gray;
+  box-shadow: 2px 2px 1px gray;
+}
+
+/*# sourceMappingURL=style1.css.map */

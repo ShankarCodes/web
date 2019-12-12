@@ -1,0 +1,4 @@
+from sqlalchemy import create_engine
+engine = create_engine('postgresql+psycopg2://psycopg2:psycopg2@localhost/psycopg2')
+conn = engine.connect()
+conn = engine.connect()
