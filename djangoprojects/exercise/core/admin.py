@@ -5,5 +5,5 @@ from .models import Field
 
 admin.site.register(ExerciseData)
 admin.site.register(Field)
-admin.site.register(User)
+
 # Register your models here.
