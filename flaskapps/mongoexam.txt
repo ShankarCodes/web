@@ -1,0 +1,323 @@
+Microsoft Windows [Version 10.0.17763.914]
+(c) 2018 Microsoft Corporation. All rights reserved.
+
+D:\__Shankar2019\myfiles\webdev>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                cd flaskapps
+
+D:\__Shankar2019\myfiles\webdev\flaskapps>.flaskenv\Scripts\activate
+
+(.flaskenv) D:\__Shankar2019\myfiles\webdev\flaskapps>python
+Python 3.7.4 (tags/v3.7.4:e09359112e, Jul  8 2019, 20:34:20) [MSC v.1916 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import mhelp
+>>> engine = mhelp.MDB("post_app","posts")
+>>> engine.insert({"name":"shankar","roll":4})
+ObjectId('5df33018ca89b11717ae57ed')
+>>> res = engine.insert({"name":"roopa","roll":5})
+>>> str(res)
+'5df3302bca89b11717ae57ee'
+>>> engine.get_by_id(str(res))
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\mhelp.py", line 30, in get_by_id
+    return self.collection.find_one({'_id': ObjectId(post_id)})
+NameError: name 'post_id' is not defined
+>>> ^D
+  File "<stdin>", line 1
+    ╝
+    ^
+SyntaxError: invalid syntax
+>>> exit()
+
+(.flaskenv) D:\__Shankar2019\myfiles\webdev\flaskapps>python
+Python 3.7.4 (tags/v3.7.4:e09359112e, Jul  8 2019, 20:34:20) [MSC v.1916 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import mhelp
+>>> engine = mhelp.MDB("post_app","posts")
+>>> engine.get_by_id('5df3302bca89b11717ae57ee')
+{'_id': ObjectId('5df3302bca89b11717ae57ee'), 'name': 'roopa', 'roll': 5}
+>>> engine.create_index('roll')
+>>> res = engine.insert({"name":"whitey","roll":5})
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\mhelp.py", line 13, in insert
+    id_ = self.collection.insert_one(data).inserted_id
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\collection.py", line 698, in insert_one
+    session=session),
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\collection.py", line 612, in _insert
+    bypass_doc_val, session)
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\collection.py", line 600, in _insert_one
+    acknowledged, _insert_command, session)
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\mongo_client.py", line 1491, in _retryable_write
+    return self._retry_with_session(retryable, func, s, None)
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\mongo_client.py", line 1384, in _retry_with_session
+    return func(session, sock_info, retryable)
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\collection.py", line 597, in _insert_command
+    _check_write_command_response(result)
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\helpers.py", line 221, in _check_write_command_response
+    _raise_last_write_error(write_errors)
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\helpers.py", line 202, in _raise_last_write_error
+    raise DuplicateKeyError(error.get("errmsg"), 11000, error)
+pymongo.errors.DuplicateKeyError: E11000 duplicate key error collection: post_app.posts index: roll_1 dup key: { roll: 5 }
+>>> res = engine.insert({"name":"whitey","roll":6})
+>>> engine.get()
+{'_id': ObjectId('5df33018ca89b11717ae57ed'), 'name': 'shankar', 'roll': 4}
+>>> [i for i in engine.get_all()]
+[{'_id': ObjectId('5df33018ca89b11717ae57ed'), 'name': 'shankar', 'roll': 4}, {'_id': ObjectId('5df3302bca89b11717ae57ee'), 'name': 'roopa', 'roll': 5}, {'_id': ObjectId('5df330bc32707ea0112faade'), 'name': 'whitey', 'roll': 6}]
+>>> engine.collection
+Collection(Database(MongoClient(host=['localhost:27017'], document_class=dict, tz_aware=False, connect=True), 'post_app'), 'posts')
+>>> engine.collection.update_one
+<bound method Collection.update_one of Collection(Database(MongoClient(host=['localhost:27017'], document_class=dict, tz_aware=False, connect=True), 'post_app'), 'posts')>
+>>> engine.collection.update_one({'name':'greatshank','roll':4})
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: update_one() missing 1 required positional argument: 'update'
+>>> engine.collection.update_one(engine.get_by_id('5df33018ca89b11717ae57ed'),{'name':'greatshank','roll':4})
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\collection.py", line 993, in update_one
+    common.validate_ok_for_update(update)
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\common.py", line 535, in validate_ok_for_update
+    raise ValueError('update only works with $ operators')
+ValueError: update only works with $ operators
+>>> engine.collection.update_one(engine.get_by_id('5df33018ca89b11717ae57ed'),{'$name':'greatshank','roll':4})
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\collection.py", line 1003, in update_one
+    session=session),
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\collection.py", line 856, in _update_retryable
+    _update, session)
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\mongo_client.py", line 1491, in _retryable_write
+    return self._retry_with_session(retryable, func, s, None)
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\mongo_client.py", line 1384, in _retry_with_session
+    return func(session, sock_info, retryable)
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\collection.py", line 852, in _update
+    retryable_write=retryable_write)
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\collection.py", line 823, in _update
+    _check_write_command_response(result)
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\helpers.py", line 221, in _check_write_command_response
+    _raise_last_write_error(write_errors)
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\helpers.py", line 203, in _raise_last_write_error
+    raise WriteError(error.get("errmsg"), error.get("code"), error)
+pymongo.errors.WriteError: Unknown modifier: $name. Expected a valid update modifier or pipeline-style update specified as an array
+>>> engine.collection.update_one(engine.get_by_id('5df33018ca89b11717ae57ed'),{'$set':{'name':'greatshank','roll':4}})
+<pymongo.results.UpdateResult object at 0x000001EF0EBC7E88>
+>>> [i for i in engine.get_all()]
+[{'_id': ObjectId('5df33018ca89b11717ae57ed'), 'name': 'greatshank', 'roll': 4}, {'_id': ObjectId('5df3302bca89b11717ae57ee'), 'name': 'roopa', 'roll': 5}, {'_id': ObjectId('5df330bc32707ea0112faade'), 'name': 'whitey', 'roll': 6}]
+>>> engine.collection.update_one(engine.get_by_id('5df33018ca89b11717ae57ed'),{'name':'greatshank','roll':4})
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\collection.py", line 993, in update_one
+    common.validate_ok_for_update(update)
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\common.py", line 535, in validate_ok_for_update
+    raise ValueError('update only works with $ operators')
+ValueError: update only works with $ operators
+>>> engine.collection.update_one(engine.get_by_id('5df33018ca89b11717ae57ed'),{'$set':{'name':'greatshank','roll':4}})
+<pymongo.results.UpdateResult object at 0x000001EF0EB9DEC8>
+>>>
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+KeyboardInterrupt
+>>> exit()
+
+(.flaskenv) D:\__Shankar2019\myfiles\webdev\flaskapps>python
+Python 3.7.4 (tags/v3.7.4:e09359112e, Jul  8 2019, 20:34:20) [MSC v.1916 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import mhelp
+>>> engine = mhelp.MDB("post_app","posts")
+>>> engine.update({'name':'roopa'},{'name':'Roopaw'})
+>>> [i for i in engine.get_all()]
+[{'_id': ObjectId('5df33018ca89b11717ae57ed'), 'name': 'greatshank', 'roll': 4}, {'_id': ObjectId('5df3302bca89b11717ae57ee'), 'name': 'Roopaw', 'roll': 5}, {'_id': ObjectId('5df330bc32707ea0112faade'), 'name': 'whitey', 'roll': 6}]
+>>> engine.update({'name':'roopa'},{'name':'Roopaw'})
+>>> engine = mhelp.MDB("post_app","posts")
+>>> engine.insert({"name":"shankar","roll":5,"post":[]})
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\mhelp.py", line 13, in insert
+    id_ = self.collection.insert_one(data).inserted_id
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\collection.py", line 698, in insert_one
+    session=session),
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\collection.py", line 612, in _insert
+    bypass_doc_val, session)
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\collection.py", line 600, in _insert_one
+    acknowledged, _insert_command, session)
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\mongo_client.py", line 1491, in _retryable_write
+    return self._retry_with_session(retryable, func, s, None)
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\mongo_client.py", line 1384, in _retry_with_session
+    return func(session, sock_info, retryable)
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\collection.py", line 597, in _insert_command
+    _check_write_command_response(result)
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\helpers.py", line 221, in _check_write_command_response
+    _raise_last_write_error(write_errors)
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\helpers.py", line 202, in _raise_last_write_error
+    raise DuplicateKeyError(error.get("errmsg"), 11000, error)
+pymongo.errors.DuplicateKeyError: E11000 duplicate key error collection: post_app.posts index: roll_1 dup key: { roll: 5 }
+>>> engine.insert({"name":"shankar","roll":6,"post":[]})
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\mhelp.py", line 13, in insert
+    id_ = self.collection.insert_one(data).inserted_id
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\collection.py", line 698, in insert_one
+    session=session),
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\collection.py", line 612, in _insert
+    bypass_doc_val, session)
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\collection.py", line 600, in _insert_one
+    acknowledged, _insert_command, session)
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\mongo_client.py", line 1491, in _retryable_write
+    return self._retry_with_session(retryable, func, s, None)
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\mongo_client.py", line 1384, in _retry_with_session
+    return func(session, sock_info, retryable)
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\collection.py", line 597, in _insert_command
+    _check_write_command_response(result)
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\helpers.py", line 221, in _check_write_command_response
+    _raise_last_write_error(write_errors)
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\helpers.py", line 202, in _raise_last_write_error
+    raise DuplicateKeyError(error.get("errmsg"), 11000, error)
+pymongo.errors.DuplicateKeyError: E11000 duplicate key error collection: post_app.posts index: roll_1 dup key: { roll: 6 }
+>>> engine.insert({"name":"shankar","roll":7,"post":[]})
+ObjectId('5df3393ff9a1a19b73dd163c')
+>>> engine.collection.update_one({"roll":7},{"$push":{"post":5}}})
+  File "<stdin>", line 1
+    engine.collection.update_one({"roll":7},{"$push":{"post":5}}})
+                                                                ^
+SyntaxError: invalid syntax
+>>> engine.collection.update_one({"roll":7},{"$push":{"post":5}})
+<pymongo.results.UpdateResult object at 0x000001AC7CD2EE48>
+>>> [i for i in engine.get_all()]
+[{'_id': ObjectId('5df33018ca89b11717ae57ed'), 'name': 'greatshank', 'roll': 4}, {'_id': ObjectId('5df3302bca89b11717ae57ee'), 'name': 'Roopaw', 'roll': 5}, {'_id': ObjectId('5df330bc32707ea0112faade'), 'name': 'whitey', 'roll': 6}, {'_id': ObjectId('5df3393ff9a1a19b73dd163c'), 'name': 'shankar', 'roll': 7, 'post': [5]}]
+>>> engine.collection.update_one({"roll":7},{"$push":{"post":7}}})
+  File "<stdin>", line 1
+    engine.collection.update_one({"roll":7},{"$push":{"post":7}}})
+                                                                ^
+SyntaxError: invalid syntax
+>>> engine.collection.update_one({"roll":7},{"$push":{"post":7}})
+<pymongo.results.UpdateResult object at 0x000001AC7CD2E388>
+>>> engine.collection.update_one({"roll":7},{"$push":{"post":8}})
+<pymongo.results.UpdateResult object at 0x000001AC7CD2E3C8>
+>>> [i for i in engine.get_all()]
+[{'_id': ObjectId('5df33018ca89b11717ae57ed'), 'name': 'greatshank', 'roll': 4}, {'_id': ObjectId('5df3302bca89b11717ae57ee'), 'name': 'Roopaw', 'roll': 5}, {'_id': ObjectId('5df330bc32707ea0112faade'), 'name': 'whitey', 'roll': 6}, {'_id': ObjectId('5df3393ff9a1a19b73dd163c'), 'name': 'shankar', 'roll': 7, 'post': [5, 7, 8]}]
+>>> engine.collection.update_one({"roll":7},{"$push":{"posts":5}})
+<pymongo.results.UpdateResult object at 0x000001AC7C6BCD48>
+>>> [i for i in engine.get_all()]
+[{'_id': ObjectId('5df33018ca89b11717ae57ed'), 'name': 'greatshank', 'roll': 4}, {'_id': ObjectId('5df3302bca89b11717ae57ee'), 'name': 'Roopaw', 'roll': 5}, {'_id': ObjectId('5df330bc32707ea0112faade'), 'name': 'whitey', 'roll': 6}, {'_id': ObjectId('5df3393ff9a1a19b73dd163c'), 'name': 'shankar', 'roll': 7, 'post': [5, 7, 8], 'posts': [5]}]
+>>> engine.collection.update_one({"roll":7},{"$push":{"post":[12,16,20]}})
+<pymongo.results.UpdateResult object at 0x000001AC7CCE4E88>
+>>> [i for i in engine.get_all()]
+[{'_id': ObjectId('5df33018ca89b11717ae57ed'), 'name': 'greatshank', 'roll': 4}, {'_id': ObjectId('5df3302bca89b11717ae57ee'), 'name': 'Roopaw', 'roll': 5}, {'_id': ObjectId('5df330bc32707ea0112faade'), 'name': 'whitey', 'roll': 6}, {'_id': ObjectId('5df3393ff9a1a19b73dd163c'), 'name': 'shankar', 'roll': 7, 'post': [5, 7, 8, [12, 16, 20]], 'posts': [5]}]
+>>> engine.collection.update_one({"roll":7},{"$each":{"post":[12,16,20]}})
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\collection.py", line 1003, in update_one
+    session=session),
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\collection.py", line 856, in _update_retryable
+    _update, session)
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\mongo_client.py", line 1491, in _retryable_write
+    return self._retry_with_session(retryable, func, s, None)
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\mongo_client.py", line 1384, in _retry_with_session
+    return func(session, sock_info, retryable)
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\collection.py", line 852, in _update
+    retryable_write=retryable_write)
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\collection.py", line 823, in _update
+    _check_write_command_response(result)
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\helpers.py", line 221, in _check_write_command_response
+    _raise_last_write_error(write_errors)
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\helpers.py", line 203, in _raise_last_write_error
+    raise WriteError(error.get("errmsg"), error.get("code"), error)
+pymongo.errors.WriteError: Unknown modifier: $each. Expected a valid update modifier or pipeline-style update specified as an array
+>>> engine.collection.update_one({"roll":7},{"$push $each":{"post":[12,16,20]}})
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\collection.py", line 1003, in update_one
+    session=session),
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\collection.py", line 856, in _update_retryable
+    _update, session)
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\mongo_client.py", line 1491, in _retryable_write
+    return self._retry_with_session(retryable, func, s, None)
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\mongo_client.py", line 1384, in _retry_with_session
+    return func(session, sock_info, retryable)
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\collection.py", line 852, in _update
+    retryable_write=retryable_write)
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\collection.py", line 823, in _update
+    _check_write_command_response(result)
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\helpers.py", line 221, in _check_write_command_response
+    _raise_last_write_error(write_errors)
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\helpers.py", line 203, in _raise_last_write_error
+    raise WriteError(error.get("errmsg"), error.get("code"), error)
+pymongo.errors.WriteError: Unknown modifier: $push $each. Expected a valid update modifier or pipeline-style update specified as an array
+>>> engine.collection.update_one({"roll":7},{"$push$each":{"post":[12,16,20]}})
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\collection.py", line 1003, in update_one
+    session=session),
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\collection.py", line 856, in _update_retryable
+    _update, session)
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\mongo_client.py", line 1491, in _retryable_write
+    return self._retry_with_session(retryable, func, s, None)
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\mongo_client.py", line 1384, in _retry_with_session
+    return func(session, sock_info, retryable)
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\collection.py", line 852, in _update
+    retryable_write=retryable_write)
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\collection.py", line 823, in _update
+    _check_write_command_response(result)
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\helpers.py", line 221, in _check_write_command_response
+    _raise_last_write_error(write_errors)
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\helpers.py", line 203, in _raise_last_write_error
+    raise WriteError(error.get("errmsg"), error.get("code"), error)
+pymongo.errors.WriteError: Unknown modifier: $push$each. Expected a valid update modifier or pipeline-style update specified as an array
+>>> engine.collection.update_one({"roll":7},{"$":{"post":[12,16,20]}})
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\collection.py", line 1003, in update_one
+    session=session),
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\collection.py", line 856, in _update_retryable
+    _update, session)
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\mongo_client.py", line 1491, in _retryable_write
+    return self._retry_with_session(retryable, func, s, None)
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\mongo_client.py", line 1384, in _retry_with_session
+    return func(session, sock_info, retryable)
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\collection.py", line 852, in _update
+    retryable_write=retryable_write)
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\collection.py", line 823, in _update
+    _check_write_command_response(result)
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\helpers.py", line 221, in _check_write_command_response
+    _raise_last_write_error(write_errors)
+  File "D:\__Shankar2019\myfiles\webdev\flaskapps\.flaskenv\lib\site-packages\pymongo\helpers.py", line 203, in _raise_last_write_error
+    raise WriteError(error.get("errmsg"), error.get("code"), error)
+pymongo.errors.WriteError: Unknown modifier: $. Expected a valid update modifier or pipeline-style update specified as an array
+>>> engine.collection.update_one({"roll":7},{"$push":{"post":{"$each":[12,16,20]}}})
+<pymongo.results.UpdateResult object at 0x000001AC7CD3A948>
+>>> [i for i in engine.get_all()]
+[{'_id': ObjectId('5df33018ca89b11717ae57ed'), 'name': 'greatshank', 'roll': 4}, {'_id': ObjectId('5df3302bca89b11717ae57ee'), 'name': 'Roopaw', 'roll': 5}, {'_id': ObjectId('5df330bc32707ea0112faade'), 'name': 'whitey', 'roll': 6}, {'_id': ObjectId('5df3393ff9a1a19b73dd163c'), 'name': 'shankar', 'roll': 7, 'post': [5, 7, 8, [12, 16, 20], 12, 16, 20], 'posts': [5]}]
+>>> engine.collection.update_one({"roll":7},{"$push":{"post":{"$each":[12,16,20]}}})
+<pymongo.results.UpdateResult object at 0x000001AC7CD0A508>
+>>>
+>>> exit()
+
+(.flaskenv) D:\__Shankar2019\myfiles\webdev\flaskapps>python
+Python 3.7.4 (tags/v3.7.4:e09359112e, Jul  8 2019, 20:34:20) [MSC v.1916 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import mhelp
+>>> engine = mhelp.MDB("post_app","posts")
+>>> engine.add_many({"roll":6},"post",[1,4,5,64,32])
+>>> [i for i in engine.get_all()]
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'MDB' object has no attribute 'get_all'
+>>> [i for i in engine.get_many()]
+[{'_id': ObjectId('5df33018ca89b11717ae57ed'), 'name': 'greatshank', 'roll': 4}, {'_id': ObjectId('5df3302bca89b11717ae57ee'), 'name': 'Roopaw', 'roll': 5}, {'_id': ObjectId('5df330bc32707ea0112faade'), 'name': 'whitey', 'roll': 6, 'post': [1, 4, 5, 64, 32]}, {'_id': ObjectId('5df3393ff9a1a19b73dd163c'), 'name': 'shankar', 'roll': 7, 'post': [5, 7, 8, [12, 16, 20], 12, 16, 20, 12, 16, 20], 'posts': [5]}]
+>>> ^A

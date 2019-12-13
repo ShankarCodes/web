@@ -2,12 +2,13 @@ from flask import Flask,request,jsonify,redirect,make_response
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 
-udb={
+"""udb={
 	'shankar':["My First Post","The Second in the Series","The Third in the Series"],
 	'roopa':['Shankar is powerful','Hello How are you'],
 	'hari':['Shankar is great','whitey eats a lot'],
 	'whitey':['I like food','I like Chappati','I like biscut','I like rats']
 }
+"""
 
 app = Flask(__name__)
 limiter = Limiter(

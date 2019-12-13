@@ -27,9 +27,9 @@ class MDB:
             return self.collection.find_one(query)
     
     def get_by_id(self,id_):
-        return self.collection.find_one({'_id': ObjectId(post_id)})
+        return self.collection.find_one({'_id': ObjectId(id_)})
 
-    def get_all(self,query=None):
+    def get_many(self,query=None):
         if query is None:
             return self.collection.find()
         else:
@@ -39,6 +39,17 @@ class MDB:
 
     def count(self,query):
         return self.collection.count_documents(query)
+
+    def update(self,query,newdata):
+        self.collection.update_one(query,{'$set':newdata})
+    
+    def add(self,query,newdata):
+        self.collection.update_one(query,{'$push':newdata})
+    
+    def add_many(self,query,field,data):
+        self.collection.update_one(query,{"$push":{field:{"$each":data}}})
+
+
 
 
         
