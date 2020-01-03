@@ -1,0 +1,21 @@
+{%extends 'core/base.html'%}
+{%block main%}
+    <body>
+        <ul>
+            {% for movie in object_list%}
+            <a href="{%url 'MovieDetail' pk=movie.id%}"><li>{{movie}}</li></a>
+            {%empty%}
+            <li>
+                No Movies Yet
+            </li>
+            {%endfor%}
+            </ul>
+            <p>
+                Https:
+                {{request.is_secure|yesno}}
+            </p>
+
+        </ul>
+        {%endblock%}
+    </body>
+</html>

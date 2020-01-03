@@ -1,0 +1,13 @@
+<html>
+<head>
+{% if ctx.title %}
+<title>{{ctx.title}} </title>
+
+{%else %}
+<title>Hello World</title>
+{% endif%}
+</head>
+<body>
+<h1>Hello,{{ctx.username}}</h1>
+</body>
+</html>
