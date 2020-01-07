@@ -1,3 +1,6 @@
 [submodule "js"]
 	path = js
 	url = https://github.com/ShankarCodes/web-devl.git
+[submodule "hello"]
+	path = hello
+	url = https://github.com/ShankarCodes/hello-flask.git

@@ -1,10 +1,14 @@
 from .app import app as app
-from .views import home_page
+from . import views
 from . import api
+
 url = app.add_url_rule
 
-urlpath = [
-url('/','home',api.get_post),
+API = '/api/v1'
 
+urlpath = [
+url('/','home',views.home_page),
+url(API+'/<username>/posts/','get_posts',api.get_posts),
+url(API+'/<username>/posts/<i>','get_post',api.get_post),
 ]
 
